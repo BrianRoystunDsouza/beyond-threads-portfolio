@@ -24,18 +24,20 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? 'glass shadow-lg shadow-teal-500/10 py-3' : 'bg-transparent py-5'
+        scrolled
+          ? 'border-b border-teal-200/70 bg-[linear-gradient(110deg,rgba(250,253,249,0.94)_0%,rgba(224,247,244,0.88)_48%,rgba(153,246,228,0.62)_100%)] py-2 shadow-lg shadow-teal-500/10 backdrop-blur-xl'
+          : 'border-b border-teal-100/50 bg-[linear-gradient(110deg,rgba(250,253,249,0.82)_0%,rgba(224,247,244,0.72)_48%,rgba(127,255,212,0.42)_100%)] py-5 backdrop-blur-md'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-12xl mx-auto px-6 flex items-center justify-between gap-4">
         {/* Logo */}
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex flex-col">
-          <span className="font-display text-xl font-medium text-teal-800 leading-none tracking-wide">
-            Beyond Threads
-          </span>
-          <span className="font-accent text-xs text-teal-500 italic tracking-widest">
-            by Prapti
-          </span>
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="flex items-center font-display text-2xl font-medium leading-none text-teal-900 transition-transform duration-300 hover:scale-105 md:text-3xl"
+          aria-label="Go to top"
+        >
+          <span>Beyond</span>
+          <em className="text-gradient ml-2 not-italic">Threads</em>
         </button>
 
         {/* Desktop links */}

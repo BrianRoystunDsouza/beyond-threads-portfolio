@@ -1,179 +1,136 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from '../hooks/useInView'
 
-// Portfolio data — replace image URLs with real product photos
-const items = [
-  {
-    id: 1,
-    title: 'Amigurumi Bear',
-    category: 'Toys',
-    description: 'A soft, huggable crochet bear made with premium cotton yarn. Perfect as a gift for newborns or toddlers. Customizable in any color palette.',
-    image: 'https://images.unsplash.com/photo-1558171813-5a6c0c88e7d0?w=600&q=80',
-    tags: ['Gift', 'Baby', 'Custom'],
-    whatsapp: '919XXXXXXXXX',
-  },
-  {
-    id: 2,
-    title: 'Ocean Tote Bag',
-    category: 'Bags',
-    description: 'A sturdy, stylish hand-crocheted tote bag in ocean teal shades. Spacious enough for daily use, light enough to carry everywhere.',
-    image: 'https://images.unsplash.com/photo-1591561954557-26941169b49e?w=600&q=80',
-    tags: ['Everyday', 'Tote', 'Teal'],
-    whatsapp: '919XXXXXXXXX',
-  },
-  {
-    id: 3,
-    title: 'Crochet Flower Bouquet',
-    category: 'Flowers',
-    description: 'Eternal flowers that never wilt. A handcrafted crochet bouquet in pastel shades, perfect for home décor or as a lasting gift.',
-    image: 'https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=600&q=80',
-    tags: ['Décor', 'Gift', 'Floral'],
-    whatsapp: '919XXXXXXXXX',
-  },
-  {
-    id: 4,
-    title: 'Bunny Plushie',
-    category: 'Toys',
-    description: 'An adorable long-eared bunny crocheted with love. Soft, safe for children, and comes with a tiny bow tie. Makes birthdays unforgettable.',
-    image: 'https://images.unsplash.com/photo-1612198790700-b4f2ab3a6f67?w=600&q=80',
-    tags: ['Bunny', 'Kids', 'Soft'],
-    whatsapp: '919XXXXXXXXX',
-  },
-  {
-    id: 5,
-    title: 'Boho Wall Hanging',
-    category: 'Décor',
-    description: 'A stunning macramé-inspired crochet wall piece in natural and teal tones. Adds a calm, artisanal energy to any room.',
-    image: 'https://images.unsplash.com/photo-1525904097878-94fb15835963?w=600&q=80',
-    tags: ['Wall Art', 'Boho', 'Home'],
-    whatsapp: '919XXXXXXXXX',
-  },
-  {
-    id: 6,
-    title: 'Mini Cactus Collection',
-    category: 'Plants',
-    description: 'A trio of tiny crochet cacti — no water needed! Each one unique, each one made by hand. The perfect desk companion.',
-    image: 'https://images.unsplash.com/photo-1558171813-5a6c0c88e7d0?w=600&q=80',
-    tags: ['Cactus', 'Desk', 'Set'],
-    whatsapp: '919XXXXXXXXX',
-  },
+const INSTAGRAM_PROFILE_URL =
+  'https://www.instagram.com/beyond_threadsss?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=='
+
+const galleryFiles = [
+  'gal_1.jpeg',
+  'gal_2.jpeg',
+  'gal_3.jpeg',
+  'gal_4.jpeg',
+  'gal_5.jpeg',
+  'gal_6.jpeg',
+  'gal_7.jpeg',
+  'gal_8.jpg',
+  'gal_9.webp',
+  'gal_10.webp',
+  'gal_11.webp',
+  'gal_12.webp',
+  'gal_13.webp',
+  'gal_14.webp',
+  'gal_15.webp',
 ]
 
-const categories = ['All', 'Toys', 'Bags', 'Flowers', 'Décor', 'Plants']
+const items = galleryFiles.map((file, index) => ({
+  id: index + 1,
+  title: `Beyond Threads Creation ${index + 1}`,
+  description: 'Handmade crochet work from the Beyond Threads collection.',
+  image: `/${file}`,
+  instagram: INSTAGRAM_PROFILE_URL,
+}))
 
 function PortfolioCard({ item, onClick, index }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
+    <motion.button
+      type="button"
+      initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      className="portfolio-card group relative overflow-hidden rounded-2xl cursor-pointer bg-white shadow-md shadow-teal-100/50 hover:shadow-xl hover:shadow-teal-200/50 transition-all duration-500"
+      transition={{ duration: 0.45, delay: Math.min(index * 0.04, 0.35), ease: [0.22, 1, 0.36, 1] }}
+      className="portfolio-card group relative block w-[210px] flex-shrink-0 overflow-hidden rounded-[28px] bg-white shadow-md shadow-teal-100/60 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-teal-200/60 sm:w-[240px] md:w-[280px]"
       onClick={() => onClick(item)}
     >
-      <div className="overflow-hidden aspect-[4/5]">
+      <div className="aspect-[4/5] overflow-hidden">
         <img
           src={item.image}
           alt={item.title}
-          className="w-full h-full object-cover transition-transform duration-700"
+          className="h-full w-full object-cover object-center transition-transform duration-700"
           loading="lazy"
         />
       </div>
 
-      {/* Overlay */}
-      <div className="portfolio-overlay absolute inset-0 bg-gradient-to-t from-teal-900/80 via-teal-800/20 to-transparent opacity-0 transition-opacity duration-400 flex flex-col justify-end p-5">
-        <span className="font-body text-xs text-teal-300 uppercase tracking-widest mb-1">{item.category}</span>
-        <h3 className="font-display text-xl text-white mb-2">{item.title}</h3>
-        <div className="flex gap-2 flex-wrap">
-          {item.tags.map((t) => (
-            <span key={t} className="px-2 py-0.5 rounded-full bg-teal-400/20 border border-teal-300/30 text-teal-100 text-xs">
-              {t}
-            </span>
-          ))}
-        </div>
-        <div className="mt-3 inline-flex items-center gap-1 text-teal-300 text-sm font-body">
-          View Details
-          <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </div>
+      <div className="portfolio-overlay absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-teal-950/80 via-teal-900/20 to-transparent p-5 opacity-0 transition-opacity duration-300">
+        <h3 className="font-display text-xl text-white">{item.title}</h3>
+        <p className="mt-2 font-body text-sm text-teal-100/90">Tap to view larger</p>
       </div>
+    </motion.button>
+  )
+}
 
-      {/* Category badge */}
-      <div className="absolute top-3 left-3">
-        <span className="px-3 py-1 rounded-full glass text-xs font-body text-teal-700 border border-teal-200/40">
-          {item.category}
-        </span>
+function AnimatedRow({ items: rowItems, onSelect, reverse = false, rowName }) {
+  const repeatedItems = [...rowItems, ...rowItems]
+
+  return (
+    <div className="portfolio-marquee">
+      <div className={`portfolio-track ${reverse ? 'portfolio-track-reverse' : ''}`} aria-label={rowName}>
+        {repeatedItems.map((item, index) => (
+          <PortfolioCard
+            key={`${rowName}-${item.id}-${index}`}
+            item={item}
+            onClick={onSelect}
+            index={index}
+          />
+        ))}
       </div>
-    </motion.div>
+    </div>
   )
 }
 
 function Modal({ item, onClose }) {
-  const whatsappMsg = encodeURIComponent(`Hi Prapti! I'd love to order the "${item.title}" from Beyond Threads. Could you share more details?`)
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-teal-900/60 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-teal-950/70 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
       <motion.div
-        initial={{ scale: 0.85, opacity: 0, y: 30 }}
+        initial={{ scale: 0.92, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.85, opacity: 0, y: 30 }}
-        transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
-        className="relative bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl shadow-teal-900/30"
-        onClick={(e) => e.stopPropagation()}
+        exit={{ scale: 0.92, opacity: 0, y: 20 }}
+        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        className="relative w-full max-w-4xl overflow-hidden rounded-[32px] bg-white shadow-2xl shadow-teal-950/20"
+        onClick={(event) => event.stopPropagation()}
       >
         <button
+          type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full glass flex items-center justify-center text-teal-700 hover:bg-teal-100 transition-colors"
+          className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-2xl text-teal-800 backdrop-blur transition-colors hover:bg-teal-50"
+          aria-label="Close modal"
         >
-          ✕
+          ×
         </button>
 
-        <div className="grid md:grid-cols-2">
-          <div className="aspect-square md:aspect-auto overflow-hidden">
-            <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+        <div className="grid md:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]">
+          <div className="max-h-[80vh] overflow-hidden bg-teal-50">
+            <img src={item.image} alt={item.title} className="h-full w-full object-cover object-center" />
           </div>
-          <div className="p-7 flex flex-col justify-between">
+
+          <div className="flex flex-col justify-between p-7 md:p-8">
             <div>
-              <span className="font-body text-xs text-teal-500 uppercase tracking-widest">{item.category}</span>
-              <h2 className="font-display text-3xl text-teal-900 mt-1 mb-4">{item.title}</h2>
-              <p className="font-body text-teal-700/80 leading-relaxed text-sm mb-4">{item.description}</p>
-              <div className="flex gap-2 flex-wrap">
-                {item.tags.map((t) => (
-                  <span key={t} className="px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-600 text-xs font-body">
-                    {t}
-                  </span>
-                ))}
-              </div>
+              <span className="font-body text-xs uppercase tracking-[0.3em] text-teal-500">Portfolio Gallery</span>
+              <h2 className="mt-3 font-display text-3xl text-teal-950">{item.title}</h2>
+              <p className="mt-4 font-body text-sm leading-relaxed text-teal-700/80">{item.description}</p>
             </div>
 
-            <div className="mt-6 flex flex-col gap-3">
+            <div className="mt-8 flex flex-col gap-3">
               <a
-                href={`https://wa.me/${item.whatsapp}?text=${whatsappMsg}`}
+                href={item.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl bg-[#25D366] text-white font-body font-medium hover:bg-[#1ebe5d] transition-all duration-300 hover:scale-105 shadow-md shadow-green-300/40"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-                  <path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.554 4.112 1.522 5.838L.037 23.256a.75.75 0 00.916.92l5.492-1.44A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.712 9.712 0 01-4.943-1.351l-.355-.211-3.658.958.979-3.566-.232-.368A9.717 9.717 0 012.25 12C2.25 6.59 6.59 2.25 12 2.25S21.75 6.59 21.75 12 17.41 21.75 12 21.75z" />
-                </svg>
-                Order on WhatsApp
-              </a>
-              <a
-                href="https://instagram.com/beyondthreads"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl border border-teal-300 text-teal-700 font-body text-sm hover:bg-teal-50 transition-all duration-300"
+                className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-br from-pink-500 via-rose-500 to-orange-400 px-5 py-3.5 font-body font-medium text-white shadow-md shadow-pink-300/40 transition-transform duration-300 hover:scale-[1.01]"
               >
                 View on Instagram
               </a>
+              <button
+                type="button"
+                onClick={onClose}
+                className="rounded-2xl border border-teal-200 px-5 py-3 font-body text-sm text-teal-700 transition-colors hover:bg-teal-50"
+              >
+                Back to Gallery
+              </button>
             </div>
           </div>
         </div>
@@ -183,65 +140,47 @@ function Modal({ item, onClose }) {
 }
 
 export default function Portfolio() {
-  const [active, setActive] = useState('All')
   const [selected, setSelected] = useState(null)
   const [ref, inView] = useInView()
 
-  const filtered = active === 'All' ? items : items.filter((i) => i.category === active)
+  const [topRow, bottomRow] = useMemo(() => {
+    const first = items.filter((_, index) => index % 2 === 0)
+    const second = items.filter((_, index) => index % 2 === 1)
+    return [first, second]
+  }, [])
 
   return (
-    <section id="portfolio" className="py-24 bg-gradient-to-b from-teal-50/60 to-white" ref={ref}>
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
+    <section id="portfolio" className="overflow-hidden bg-gradient-to-b from-teal-50/60 to-white py-24" ref={ref}>
+      <div className="mx-auto max-w-7xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-14"
+          className="mb-12 text-center"
         >
-          <span className="font-body text-xs text-teal-500 uppercase tracking-widest">— Our Creations —</span>
-          <h2 className="font-display text-4xl md:text-5xl text-teal-900 mt-3 mb-4">
-            Portfolio Gallery
-          </h2>
-          <p className="font-body text-teal-600/80 max-w-lg mx-auto leading-relaxed">
-            Each piece is a labor of love — crafted stitch by stitch with premium yarn and an eye for beauty.
+          <span className="font-body text-xs uppercase tracking-[0.35em] text-teal-500">Our Creations</span>
+          <h2 className="mt-3 font-display text-4xl text-teal-900 md:text-5xl">Portfolio Gallery</h2>
+          <p className="mx-auto mt-4 max-w-2xl font-body leading-relaxed text-teal-700/80">
+            The gallery now glides continuously in two animated rows, creating a softer horizontal browsing experience for
+            the full collection.
           </p>
         </motion.div>
 
-        {/* Filter tabs */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className="relative space-y-5"
         >
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActive(cat)}
-              className={`px-5 py-2 rounded-full font-body text-sm transition-all duration-300 ${
-                active === cat
-                  ? 'bg-teal-600 text-white shadow-md shadow-teal-400/30'
-                  : 'glass border border-teal-200/40 text-teal-600 hover:border-teal-400/50'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </motion.div>
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-teal-50 via-teal-50/75 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-white via-white/75 to-transparent" />
 
-        {/* Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-6">
-          {filtered.map((item, i) => (
-            <PortfolioCard key={item.id} item={item} onClick={setSelected} index={i} />
-          ))}
-        </div>
+          <AnimatedRow items={topRow} onSelect={setSelected} rowName="Top gallery row" />
+          <AnimatedRow items={bottomRow} onSelect={setSelected} reverse rowName="Bottom gallery row" />
+        </motion.div>
       </div>
 
-      {/* Modal */}
-      <AnimatePresence>
-        {selected && <Modal item={selected} onClose={() => setSelected(null)} />}
-      </AnimatePresence>
+      <AnimatePresence>{selected && <Modal item={selected} onClose={() => setSelected(null)} />}</AnimatePresence>
     </section>
   )
 }

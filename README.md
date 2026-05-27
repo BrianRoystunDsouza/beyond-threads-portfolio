@@ -106,6 +106,31 @@ To add more categories, also update the `categories` array:
 const categories = ['All', 'Toys', 'Bags', 'Flowers', 'Décor', 'Plants', 'YourNewCategory']
 ```
 
+### Instagram Auto-Sync Gallery
+The portfolio gallery now supports a dynamic feed endpoint. If `VITE_GALLERY_FEED_URL` is set, the site will fetch gallery items from that URL and fall back to local images if the request fails.
+
+Example `.env`:
+```bash
+VITE_GALLERY_FEED_URL=/api/instagram-feed
+```
+
+Expected response shape:
+```json
+{
+  "items": [
+    {
+      "id": "1789",
+      "title": "Tulip bouquet",
+      "category": "Flowers",
+      "description": "Handmade crochet bouquet",
+      "image": "https://...",
+      "tags": ["Instagram", "Bouquet"],
+      "instagram": "https://www.instagram.com/p/..."
+    }
+  ]
+}
+```
+
 ### 💬 Update Testimonials
 In `src/sections/Testimonials.jsx`, edit the `testimonials` array with real customer reviews.
 
