@@ -6,13 +6,13 @@ const steps = [
     num: '01',
     icon: '💬',
     title: 'You Share Your Vision',
-    desc: 'Tell Prapti what you have in mind — a plushie for your little one, a bag in your favorite color, or a gift for someone special. Every conversation is the start of something beautiful.',
+    desc: 'Tell us what you have in mind — a plushie for your little one, a bag in your favorite color, or a gift for someone special. Every conversation is the start of something beautiful.',
   },
   {
     num: '02',
     icon: '🧶',
     title: 'Choosing the Perfect Yarn',
-    desc: 'Premium, soft, and colorfast yarn is hand-picked for your piece. Colors are matched carefully — Prapti often sources special shades to bring your vision to life exactly.',
+    desc: 'Premium, soft, and colorfast yarn is hand-picked for your piece. Colors are matched carefully — We often sources special shades to bring your vision to life exactly.',
   },
   {
     num: '03',
@@ -24,7 +24,7 @@ const steps = [
     num: '04',
     icon: '✨',
     title: 'Finishing & Detailing',
-    desc: 'Buttons are sewn, ends are woven in, and every edge is checked twice. Small details — a tiny bow, embroidered eyes, a sewn-in tag — make all the difference.',
+    desc: 'Buttons are sewn, ends are woven in, and every edge is checked twice. Small details — a tiny bow, embroidered eyes — make all the difference.',
   },
   {
     num: '05',

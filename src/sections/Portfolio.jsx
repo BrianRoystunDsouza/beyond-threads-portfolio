@@ -160,10 +160,10 @@ export default function Portfolio() {
         >
           <span className="font-body text-xs uppercase tracking-[0.35em] text-teal-500">Our Creations</span>
           <h2 className="mt-3 font-display text-4xl text-teal-900 md:text-5xl">Portfolio Gallery</h2>
-          <p className="mx-auto mt-4 max-w-2xl font-body leading-relaxed text-teal-700/80">
+          {/* <p className="mx-auto mt-4 max-w-2xl font-body leading-relaxed text-teal-700/80">
             The gallery now glides continuously in two animated rows, creating a softer horizontal browsing experience for
             the full collection.
-          </p>
+          </p> */}
         </motion.div>
 
         <motion.div

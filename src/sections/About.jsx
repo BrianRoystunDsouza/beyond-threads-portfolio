@@ -39,7 +39,7 @@ export default function About() {
                   </div>
                   <div>
                     <p className="font-body text-xs font-medium uppercase tracking-[0.18em] text-teal-500">Crafting since</p>
-                    <p className="font-display text-lg text-teal-900 font-medium">2019</p>
+                    <p className="font-display text-lg text-teal-900 font-medium">2023</p>
                   </div>
                 </div>
               </motion.div>
@@ -71,9 +71,7 @@ export default function About() {
 
             <div className="space-y-4 font-body text-teal-700/80 leading-relaxed">
               <p>
-                It started with a single skein of yarn and a borrowed crochet hook. What began as a quiet hobby for
-                Prapti on a rainy afternoon in 2019 slowly grew into something she could not put down - not because
-                she had to, but because every stitch brought her joy.
+                Beyond Threads began in 2023 with a simple love for crochet and a vision to create handmade pieces that feel thoughtful, beautiful, and timeless. What started as a passion for turning yarn into art has slowly grown into a space where creativity meets craftsmanship.
               </p>
               <p>
                 <em className="font-accent italic text-teal-600 text-lg">
@@ -81,25 +79,25 @@ export default function About() {
                 </em>
               </p>
               <p>
-                Beyond Threads was born from the belief that handmade items carry something no machine ever can -
-                intention. Every amigurumi bear, every tote bag, every flower bouquet is made slowly, thoughtfully,
+                Beyond Threads was born from the belief that handmade items carry something no machine ever can.
+                Every amigurumi doll, every tote bag, every flower bouquet is made thoughtfully
                 and with a quiet kind of love woven into every thread.
               </p>
               <p>
-                Today, Prapti crafts custom pieces for families, babies, and anyone who appreciates the beauty of
-                something made just for them. No two pieces are ever identical - and that is exactly the point.
+                 We believe handmade pieces carry a personality of their own, and our goal is to
+                 create work that feels meaningful, memorable, and made with care!
               </p>
             </div>
 
             <div className="mt-8 flex flex-wrap gap-4">
               {[
                 { icon: 'Yarn', text: 'Premium yarn only' },
-                { icon: 'Love', text: 'Made to order' },
+                // { icon: 'Love', text: 'Made to order' },
                 { icon: '*', text: 'Custom designs welcome' },
-                { icon: 'Ship', text: 'Ships across India' },
+                // { icon: 'Ship', text: 'Ships across India' },
               ].map((f) => (
                 <div key={f.text} className="flex items-center gap-2 px-4 py-2 rounded-full bg-teal-50 border border-teal-200/50">
-                  <span className="text-sm text-teal-700">{f.icon}</span>
+                  {/* <span className="text-sm text-teal-700">{f.icon}</span> */}
                   <span className="font-body text-sm text-teal-700">{f.text}</span>
                 </div>
               ))}
