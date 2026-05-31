@@ -148,13 +148,13 @@ export default function Hero() {
           >
             <span className="font-accent text-sm text-teal-700 italic">Pure Craftsmanship</span>
           </motion.div>
-          <motion.div
+          {/* <motion.div
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
             className="absolute bottom-20 -left-1 md:left-4 glass rounded-2xl px-4 py-2 border border-teal-300/30 shadow-lg"
           >
             <span className="font-accent text-sm text-teal-700 italic">Made with Love *</span>
-          </motion.div>
+          </motion.div> */}
         </motion.div>
       </div>
 

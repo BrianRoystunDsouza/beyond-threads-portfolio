@@ -11,16 +11,20 @@ const galleryFiles = [
   'gal_3.jpeg',
   'gal_4.jpeg',
   'gal_5.jpeg',
-  'gal_6.jpeg',
+  // 'gal_6.jpeg',
   'gal_7.jpeg',
   'gal_8.jpg',
   'gal_9.webp',
   'gal_10.webp',
   'gal_11.webp',
   'gal_12.webp',
-  'gal_13.webp',
+  // 'gal_13.webp',
   'gal_14.webp',
   'gal_15.webp',
+  'gal_16.jpeg',
+  'gal_17.jpeg',
+  'gal_18.jpeg',
+  'gal_19.jpeg',
 ]
 
 const items = galleryFiles.map((file, index) => ({
@@ -91,24 +95,24 @@ function Modal({ item, onClose }) {
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.92, opacity: 0, y: 20 }}
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="relative w-full max-w-4xl overflow-hidden rounded-[32px] bg-white shadow-2xl shadow-teal-950/20"
+        className="relative w-full max-w-[95vw] sm:max-w-3xl md:max-w-4xl max-h-[calc(100vh-2rem)] overflow-hidden rounded-[32px] bg-white shadow-2xl shadow-teal-950/20"
         onClick={(event) => event.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-2xl text-teal-800 backdrop-blur transition-colors hover:bg-teal-50"
+          className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-2xl text-teal-800 backdrop-blur transition-colors hover:bg-teal-50"
           aria-label="Close modal"
         >
           ×
         </button>
 
-        <div className="grid md:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]">
-          <div className="max-h-[80vh] overflow-hidden bg-teal-50">
+        <div className="grid gap-6 md:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]">
+          <div className="max-h-[52vh] overflow-hidden bg-teal-50 sm:max-h-[60vh] md:max-h-[80vh]">
             <img src={item.image} alt={item.title} className="h-full w-full object-cover object-center" />
           </div>
 
-          <div className="flex flex-col justify-between p-7 md:p-8">
+          <div className="flex min-h-[220px] flex-col justify-between p-6 sm:p-7 md:p-8">
             <div>
               <span className="font-body text-xs uppercase tracking-[0.3em] text-teal-500">Portfolio Gallery</span>
               <h2 className="mt-3 font-display text-3xl text-teal-950">{item.title}</h2>
